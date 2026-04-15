@@ -1,0 +1,61 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			#numeros{
+				display:			block;
+				position:			absolute;
+				top:				5px;
+				width:				25px;
+				height:				10px;
+				background-color:	grey;
+				color:				black;
+				text-align:			center;
+			}
+		</style>
+		<script type="text/javascript">
+			var t;
+			var currImage;
+			var imgArray;
+
+			function buildImgArray(){
+				imgArray = new Array();
+				imgArray[0] = "java_1.jpg";
+				imgArray[1] = "java_2.jpg";
+				imgArray[2] = "java_3.jpg";
+				imgArray[3] = "java_4.jpg";
+				imgArray[4] = "java_5.jpg";
+			}
+
+			function mudaFoto(){
+				currImage+=1;
+				setFoto(currImage%5)
+//	função para repetir a mudança de imagem a tempo pré-estabelecido 
+//	a sintaxe da função é setTimeout("função",tempo)				
+//		em que tempo é medido em milissegundos						
+//		no presente exemplo, a função "mudaFoto" é chamada a cada 0,5 segundos	
+//				t=setTimeout("mudaFoto()",2000);
+			}
+
+			function setFoto(n){
+				clearTimeout(t);
+				document.imagem.src =imgArray[n];
+				currImage=n;
+				t=setTimeout("mudaFoto()",2000);
+			}
+		</script>
+	</head>
+
+	<body onload="buildImgArray(); setFoto(0)">
+		<div>
+		<a href="#" target="_blank">
+			<img border="0" alt="Imagem dinamica" src="java_1.jpg" name="imagem" width="400" height="120" /></a>
+			<div id="numeros" style="left:15px;" onclick="setFoto(0)">1</div>
+			<div id="numeros" style="left:45px;" onclick="setFoto(1)">2</div>
+			<div id="numeros" style="left:75px;" onclick="setFoto(2)">3</div>
+			<div id="numeros" style="left:105px;" onclick="setFoto(3)">4</div>
+			<div id="numeros" style="left:135px;" onclick="setFoto(4)">5</div>
+		</div>
+	</body>
+</html>

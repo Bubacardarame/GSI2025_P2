@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript">
+			var t;
+			var currImage=1;
+			
+			function mudaFoto(){
+				document.imagem.src ="java_2.jpg";
+			}
+			
+			function repoeFoto(){
+				document.imagem.src ="java_1.jpg";
+			}
+		</script>
+	</head>
+
+	<body>
+		<a href="#" target="_blank">
+<!--
+			<img onmouseover="mudaFoto()" onmouseout="repoeFoto()" border="0" alt="Imagem dinamica" src="java_1.jpg" name="imagem" width="100" height="60" /></a>
+-->	
+			<img onmouseover="document.imagem.src ='java_2.jpg';" onmouseout="document.imagem.src ='java_1.jpg';" border="0" alt="Imagem dinamica" src="java_1.jpg" name="imagem" width="100" height="60" /></a>
+
+	</body>
+</html>

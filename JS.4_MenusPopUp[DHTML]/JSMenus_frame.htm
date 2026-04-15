@@ -1,0 +1,579 @@
+﻿<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>exemplo de menu de navegação com frames</title>
+<!-- este exemplo server para demonstrar uma forma possivel de utilizar menus de popup num site -->
+<!-- para o efeito uriliza-se CSS e javascript							-->
+<!-- aproveito, tambem, para mostrar a utilização de um linha de status no fundo do ecran	-->
+<!-- outra particularidade desta página reside o facto de a organização ser efectuada
+     exclusivamente utilizando CSS, o que constitui uma alternativa ao uso de tabelas e frames  -->
+<!-- para o efeito recorre-se ao parametros display, position, margens, padding e z-index, que
+     permitem manipular a posição e o comportamento de blocos de texto independentes do restante  
+     conteudo da pagina										-->
+<!-- adicionalmente, poder-se-ia ter utilizado o parametro flow para 'sobrepor' varias area de
+     texto de modo conjugado									-->
+
+<!-- Não será dificil encontrar outros exemplos de menus de navegação interactivos, ou outras
+     utilizações para os paramentros e funções utilizadas. Este exemplo é utilizado por apresentar
+     uma utilização bastante abrangente e completa a materia leccionada nas aulas de SIM	-->
+
+		<style type="text/css">
+			#frameBlock{
+				position:absolute;
+				left:120px;
+				top:117px;
+				width:508px;
+				height:320px;
+				margin:10 5 10 5;
+				z-index:0;
+				border:0;
+				padding:0;
+			}
+
+			#menu1{
+				position:absolute;
+				left:25px;
+				top:100px;
+				width:100px;
+				height:25px;
+				background:silver;
+				margin:0 100 0 100;
+				text-align:center;
+			}
+			
+			#menu1 a{
+				display:block;
+				text-align:center;
+				padding:5px 10 px;
+				margin: 0 0 1px 0;
+				border-width: 0;
+				color:black;
+				text-decoration:none;
+				font-family:"Courier New", Courier, monospace;
+				font-size:12px
+			}
+			#menu1 a:hover{
+				color:blue;
+				background:gray;
+				border-left:5px double blue;
+			}
+			
+			#menu1 a span{
+				display:none;
+			}
+			#menu1 a:hover span{
+				display:block;
+				position:absolute;
+				top:350px;
+				left:-102px;
+				width:508px;
+				height:12px;
+				padding:5px;
+				margin:0px;
+				z-index:10;
+				color:black;
+				background:silver;
+				font: 0.6em verdana;
+				text-align:center;
+			}
+
+			#popUp1{
+				display:none;
+				position:absolute;
+				top:27px;
+				left:0px;
+				width:100px;
+				padding:0px;
+				margin:0px;
+				z-index:10;
+				color:white;
+				background:blue;
+				font-size:12px;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+				border-left:0px;
+			}
+			
+			#popUp1 a{
+				display:block;
+				color:white;
+				background:blue;
+				font-size:10px;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+			}
+
+			#popUp1 a:hover{
+				display:block;
+				color:aqua;
+				background:navy;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				border-left:0px;
+			}
+
+/* estilos de formatação para menus */
+			#menu1{
+				position:absolute;
+				left:25px;
+				top:100px;
+				width:100px;
+				height:25px;
+				background:silver;
+				margin:0 100 0 100;
+				text-align:center;
+			}
+			#menu1 a{
+				display:block;
+				text-align:center;
+				padding:5px 10px;
+				margin: 0 0 1px 0;
+				border-width: 0;
+				color:black;
+				text-decoration:none;
+				font-family:"Courier New", Courier, monospace;
+				font-size:12px
+			}
+			#menu1 a:hover{
+				color:blue;
+				background:gray;
+				border-left:5px double blue;
+			}
+			
+/* estilo para a divisão SPAN 														*
+ *-- utiliza-se span para a barra de status que aparece na parte inferior do ecra 	*/
+			#menu1 a span{
+				display:none;
+			}
+			#menu1 a:hover span{
+				display:block;
+				position:absolute;
+				top:350px;
+				left:0px;
+				width:508px;
+				height:12px;
+				padding:5px;
+				margin:0px;
+				z-index:10;
+				color:black;
+				background:silver;
+				font: 0.6em verdana;
+				text-align:center;
+			}
+
+/* estilos para os menus de popup 													*/ 
+			#popUp1{
+				display:none;
+				position:absolute;
+				top:27px;
+				left:0px;
+				width:100px;
+				padding:0px;
+				margin:0px;
+				z-index:10;
+				color:white;
+				background:blue;
+				font-size:10px;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+				border-left:0px;
+			}
+			#popUp1 a{
+				display:block;
+				color:white;
+				background:blue;
+				font-size:10px;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+			}
+
+			#popUp1 a:hover{
+				display:block;
+				color:aqua;
+				background:navy;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				border-left:0px;
+			}
+
+			#menu2{
+				position:absolute;
+				left:127px;
+				top:100px;
+				width:100px;
+				height:25px;
+				background:silver;
+				margin:0 100 0 100;
+				text-align:center;
+			}
+			#menu2 a{
+				display:block;
+				text-align:center;
+				padding:5px 10 px;
+				margin: 0 0 1px 0;
+				border-width: 0;
+				color:black;
+				text-decoration:none;
+				font-family:"Courier New", Courier, monospace;
+				font-size:12px
+			}
+			#menu2 a:hover{
+				color:blue;
+				background:gray;
+				border-left:5px double blue;
+			}
+		
+			#menu2 a span{
+				display:none;
+			}
+			#menu2 a:hover span{
+				display:block;
+				position:absolute;
+				top:350px;
+				left:-102px;
+				width:508px;
+				height:12px;
+				padding:5px;
+				margin:0px;
+				z-index:10;
+				color:black;
+				background:silver;
+				font: 0.6em verdana;
+				text-align:center;
+			}
+
+			#popUp2{
+				display:none;
+				position:absolute;
+				top:27px;
+				left:0px;
+				width:100px;
+				padding:0px;
+				margin:0px;
+				z-index:10;
+				color:white;
+				background:blue;
+				font-size:12px;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+				border-left:0px;
+			}
+			#popUp2 a{
+				display:block;
+				color:white;
+				background:blue;
+				font-size:10px;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+			}
+
+			#popUp2 a:hover{
+				display:block;
+				color:aqua;
+				background:navy;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				border-left:0px;
+			}
+
+			#menu3{
+				position:absolute;
+				left:229px;
+				top:100px;
+				width:100px;
+				height:25px;
+				background:silver;
+				margin:0 100 0 100;
+				text-align:center;
+			}
+			#menu3 a{
+				display:block;
+				text-align:center;
+				padding:5px 10 px;
+				margin: 0 0 1px 0;
+				border-width: 0;
+				color:black;
+				text-decoration:none;
+				font-family:"Courier New", Courier, monospace;
+				font-size:12px
+			}
+			#menu3 a:hover{
+				color:blue;
+				background:gray;
+				border-left:5px double blue;
+			}
+		
+			#menu3 a span{
+				display:none;
+			}
+			#menu3 a:hover span{
+				display:block;
+				position:absolute;
+				top:350px;
+				left:-204px;
+				width:508px;
+				height:12px;
+				padding:5px;
+				margin:0px;
+				z-index:10;
+				color:black;
+				background:silver;
+				font: 0.6em verdana;
+				text-align:center;
+			}
+
+			#popUp3{
+				display:none;
+				position:absolute;
+				top:27px;
+				left:0px;
+				width:100px;
+				padding:0px;
+				margin:0px;
+				z-index:10;
+				color:white;
+				background:blue;
+				font-size:12px;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+				border-left:0px;
+			}
+			#popUp3 a{
+				display:block;
+				color:white;
+				background:blue;
+				font-size:10px;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+			}
+
+			#popUp3 a:hover{
+				display:block;
+				color:aqua;
+				background:navy;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				border-left:0px;
+			}
+			#menu4{
+				position:absolute;
+				left:331px;
+				top:100px;
+				width:100px;
+				height:25px;
+				background:silver;
+				margin:0 100 0 100;
+				text-align:center;
+			}
+			#menu4 a{
+				display:block;
+				text-align:center;
+				padding:5px 10 px;
+				margin: 0 0 1px 0;
+				border-width: 0;
+				color:black;
+				text-decoration:none;
+				font-family:"Courier New", Courier, monospace;
+				font-size:12px
+			}
+			#menu4 a:hover{
+				color:blue;
+				background:gray;
+				border-left:5px double blue;
+			}
+		
+			#menu4 a span{
+				display:none;
+			}
+			#menu4 a:hover span{
+				display:block;
+				position:absolute;
+				top:350px;
+				left:-306px;
+				width:508px;
+				height:12px;
+				padding:5px;
+				margin:0px;
+				z-index:10;
+				color:black;
+				background:silver;
+				font: 0.6em verdana;
+				text-align:center;
+			}
+
+			#popUp4{
+				display:none;
+				position:absolute;
+				top:27px;
+				left:0px;
+				width:100px;
+				padding:0px;
+				margin:0px;
+				z-index:10;
+				color:white;
+				background:blue;
+				font-size:12px;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+				border-left:0px;
+			}
+			#popUp4 a{
+				display:block;
+				color:white;
+				background:blue;
+				font-size:10px;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+			}
+
+			#popUp4 a:hover{
+				display:block;
+				color:aqua;
+				background:navy;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				border-left:0px;
+			}
+
+
+			#menu5{
+				position:absolute;
+				left:433px;
+				top:100px;
+				width:100px;
+				height:25px;
+				background:silver;
+				margin:0 100 0 100;
+				text-align:center;
+			}
+			#menu5 a{
+				display:block;
+				text-align:center;
+				padding:5px 10 px;
+				margin: 0 0 1px 0;
+				border-width: 0;
+				color:black;
+				text-decoration:none;
+				font-family:"Courier New", Courier, monospace;
+				font-size:12px
+			}
+			#menu5 a:hover{
+				color:blue;
+				background:gray;
+				border-left:5px double blue;
+			}
+		
+			#menu5 a span{
+				display:none;
+			}
+			#menu5 a:hover span{
+				display:block;
+				position:absolute;
+				top:350px;
+				left:-408px;
+				width:508px;
+				height:12px;
+				padding:5px;
+				margin:0px;
+				z-index:10;
+				color:black;
+				background:silver;
+				font: 0.6em verdana;
+				text-align:center;
+			}
+
+			#popUp5{
+				display:none;
+				position:absolute;
+				top:27px;
+				left:0px;
+				width:100px;
+				padding:0px;
+				margin:0px;
+				z-index:10;
+				color:white;
+				background:blue;
+				font-size:12px;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+				border-left:0px;
+			}
+			#popUp5 a{
+				display:block;
+				color:white;
+				background:blue;
+				font-size:10px;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				text-align:left;
+			}
+
+			#popUp5 a:hover{
+				display:block;
+				color:aqua;
+				background:navy;
+				text-decoration:underline;
+				font-family:"Courier New", Courier, monospace;
+				border-left:0px;
+			}
+
+		</style>
+		
+		<script language="javascript" type="text/javascript" src="menus.js">
+		</script>
+	</head>
+	
+	<body>
+<!-- O uso de iframes há muito que é desaconselhado, o correcto é utilizar contentores (e.g. Div) e alterar o seu conteúdo dinamicamente 	-->
+<!-- Mantém-se o exemplo com iframe por simplificação uma vez que é mais simples para apresentar outras páginas do que utilizar contentores -->
+		<iframe width="506" height="325" noresize="noresize" frameborder="0" scrolling="no" name="contentFrame" id="frameBlock" src="blank_green.htm">
+		</iframe>
+
+		<div id="menu1" onmouseenter="showPopUp(1)" onmouseleave="hidePopUp1()" style="z-index: 5">
+		<a href="http://www.ulusofona.pt" target="contentFrame">ulusofona<span>navegar em sites do grupo lusofona</span></a>
+			<div id="popUp1">
+				<a href="http://moodle.ulusofona.pt" target="contentFrame">moodle</a><br>
+				<a href="blank_green.htm" target="contentFrame">voltar inicio</a>
+			</div>
+		</div>
+		
+		<div id="menu2" onmouseenter="showPopUp(2)" onmouseleave="hidePopUp2()" style="z-index: 5">
+		<a href="#">menu2<span>abre menu2</span></a>
+			<div id="popUp2">
+				<a href="#">submenu 2.1</a><br>
+				<a href="#">submenu 2.2</a>
+			</div>
+		</div>
+
+		<div id="menu3" onmouseenter="showPopUp(3)" onmouseleave="hidePopUp3()" style="z-index: 5">
+		<a href="#">menu3<span>abre menu3</span></a>
+			<div id="popUp3">
+				<a href="#">submenu 3.1</a><br>
+				<a href="#">submenu 3.2</a>
+			</div>
+		</div>
+
+		<div id="menu4" onmouseenter="showPopUp(4)" onmouseleave="hidePopUp4()" style="z-index: 5">
+		<a href="#">menu4<span>abre menu4</span></a>
+			<div id="popUp4">
+				<a href="#">submenu 4.1</a><br>
+				<a href="#">submenu 4.2</a>
+			</div>
+		</div>
+
+		<div id="menu5" onmouseenter="showPopUp(5)" onmouseleave="hidePopUp5()" style="z-index: 5">
+		<a href="#">menu5<span>abre menu5</span></a>
+			<div id="popUp5">
+				<a href="#">submenu 5.1</a><br>
+				<a href="#">submenu 5.2</a>
+			</div>
+		</div>
+	
+	</body>
+</html>

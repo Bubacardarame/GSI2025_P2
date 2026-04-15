@@ -1,0 +1,32 @@
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript">
+			var t;
+			var currImage=1;
+			
+			function mudaFoto(){
+				switch (currImage%5){
+					case 0:	document.imagem.src ="java_1.jpg";
+							break;
+					case 1:	document.imagem.src ="java_2.jpg";
+							break;
+					case 2:	document.imagem.src ="java_3.jpg";
+							break;
+					case 3:	document.imagem.src ="java_4.jpg";
+							break;
+					case 4:	document.imagem.src ="java_5.jpg";
+							break;
+				}
+				currImage+=1;
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<a href="#" target="_blank">
+			<img onmouseover="mudaFoto()" border="0" alt="Imagem dinamica" src="java_1.jpg" name="imagem" width="100" height="60" /></a>
+	</body>
+</html>

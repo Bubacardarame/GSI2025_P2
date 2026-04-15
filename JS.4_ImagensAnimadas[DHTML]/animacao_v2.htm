@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<script type="text/javascript">
+			var t;
+			var currImage=1;
+			var imgArray;
+			
+			function buildImgArray(){
+				imgArray = new Array();
+				imgArray[0] = "java_1.jpg";
+				imgArray[1] = "java_2.jpg";
+				imgArray[2] = "java_3.jpg";
+				imgArray[3] = "java_4.jpg";
+				imgArray[4] = "java_5.jpg";
+			}
+			
+			function mudaFoto(){
+				document.imagem.src =imgArray[currImage%5];
+				currImage+=1;
+/* função para repetir a mudança de imagem a tempo pré-estabelecido 			*
+ * a sintaxe da função é setTimeout("função",tempo)								*
+ * em que tempo é medido em milissegundos										*
+ * no presente exemplo, a função "mudaFoto" é chamada a cada 0,5 segundos		*/
+				t=setTimeout("mudaFoto()",500);
+			}
+		</script>
+	</head>
+
+	<body onload="buildImgArray(); mudaFoto()">
+		<a href="#" target="_blank">
+			<img border="0" alt="Imagem dinamica" src="java_1.jpg" name="imagem" width="100" height="60" /></a>
+	</body>
+</html>
