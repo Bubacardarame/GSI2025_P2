@@ -1,0 +1,61 @@
+﻿<html lang="pt">
+<!-- 	Exemplo de validação de formulário
+	o presente exemplo irá verificar se o endereço de correio electronico é valido e dar indicações ao utilizador caso não seja
+-->
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>uso de Javascript para validação de endereço de correio electronico</title>
+	<script type="text/javascript">
+	function verPreenche(campo){
+//função para verificar se um dado campo de preenchimento obrigatorio está preenchido
+		if (campo.value==null||campo.value=="")
+//verifica-se se o campo está vazio ou se tem uma string nula
+		  {return false;}
+//para cada campo em falta é apresentado um alerta de falta
+		else {return true;}
+	}
+	
+	function validarMail(endereco){
+// um endereço de e.mail é valido se:
+// 	posuir o simbolo @ (at) uma unica vez;
+// 	possuir pelo menos um ponto (.) após o @
+// 	existirem entre 2 e 4 posições após o ultimo ponto
+// outros estes poderão ser relaizados para validar o endereço,
+// como sejam testar o dominios de topo do endereço e o seu comprimento máximo
+		var posAt = endereco.value.indexOf("@");
+// A função 'INDEXOF'devolve a posição de uma sub-string numa string
+		var posPonto = endereco.value.lastIndexOf(".");
+// A função 'LASTINDEXOF' devolve a posição da ultima ocorrencia de uma sub-string numa string
+		if (posAt<1||posPonto-posAt<2){
+//verifica se o @ não está na primeira posição - posAt<1 e
+//Há pelo menos uma caracter entre o @ e o identificador de dominio - posPonto-posAt<2
+			alert("endereço de mail incorrecto");
+			return false;
+			}
+		else {return true;}
+	}
+
+		function validarForm(formulario){
+			if (verPreenche(formulario.email)==true){
+				if (validarMail(formulario.email)==false){
+					formulario.email.focus();
+					return false;
+					}
+				}
+			else{
+				alert("falta preencher campo");
+				return false;
+				}
+		}
+	</script>
+	</head>
+
+	<body>
+		<form action="mailValido.htm" onsubmit="return validarForm(this);" method="get">
+<!-- 'this' refere-se ao objecto identificado na TAG, i.e., ao FORM -->
+			Email: <input type="text" name="email" size="30" placeholder="Inserir endereço de email" title="Digite seu email">
+			<input type="submit" value="Continuar »"> 
+		</form>
+	</body>
+</html>

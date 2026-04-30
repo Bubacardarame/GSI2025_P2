@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Next Generation Technology School</title>
+
+        <link rel="stylesheet" href="style/datahandle.css" type="text/css">
+            
+        <script type="text/javascript" language="javascript">
+            let books = [];
+            let expandedIndex = null;
+            let filterText = '';
+            let sortOption = 'titulo-asc';
+
+            function showPage(page) {        
+                document.querySelectorAll('main > div').forEach(div => div.style.display = 'none');
+                document.getElementById(page).style.display = 'block';
+                if (page === 'list') updatebooksList();
+            }
+
+            function toggleDetail(index) {
+                expandedIndex = expandedIndex === index ? null : index;
+                updatebooksList();
+            }
+
+            function registerbooks() {
+                const titulo = document.getElementById('titulo').value;
+                const author = document.getElementById('author').value;
+                const dtPub = document.getElementById('dtPub').value;
+                const idioma = document.getElementById('idioma').value;
+                console.log('Dados de Livros:', titulo,' - ' ,author,' - ', dtPub,' - ', idioma);
+                if (titulo && author && dtPub && idioma) {
+                    books.push({ titulo, author, dtPub, idioma });
+                    document.getElementById('titulo').value = '';
+                    document.getElementById('author').value = '';
+                    document.getElementById('dtPub').value = '';
+                    document.getElementById('idioma').value = '';
+                    alert('Livro registado com sucesso!');
+                } else {
+                    alert('Por favor, preencha todos os campos.');
+                }
+            };
+            // Atualiza os valores do filtro e ordenação
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('filterInput').addEventListener('input', (e) => {
+                    filterText = e.target.value.toLowerCase();
+                    updatebooksList();
+                });
+
+                document.getElementById('sortSelect').addEventListener('change', (e) => {
+                    sortOption = e.target.value;
+                    updatebooksList();
+                });
+            });
+
+            function updatebooksList() {
+//                console.log('Dados de Livros:', books);
+                const list = document.getElementById('booksList');
+                list.innerHTML = '';
+
+                // 1️⃣ Filtra os Livros
+                let filtered = books.filter(s =>
+                    s.titulo.toLowerCase().includes(filterText) ||
+                    s.author.toLowerCase().includes(filterText)
+                );
+
+                // 2️⃣ Ordena os Livros
+                filtered.sort((a, b) => {
+                console.log('order:', sortOption);
+                    const [rawKey, dir] = sortOption.split('-');                
+                    
+                    // Mapeia os nomes legíveis para os campos reais do objeto
+                    const keyMap = {
+                        titulo: 'titulo',
+                        author: 'author',
+                        dtPub: 'dtPub',
+                        idioma: 'idioma'
+                    };
+
+                    const key = keyMap[rawKey]; // traduz para o campo real
+            //                const [key, dir] = sortOption.split('-');
+
+
+                    const valA = (a[key] || '').toLowerCase();
+                    const valB = (b[key] || '').toLowerCase();
+                console.log('Keys (antes):', valA, valB);
+
+                    if (valA < valB) return dir === 'asc' ? -1 : 1;
+                    if (valA > valB) return dir === 'asc' ? 1 : -1;
+                console.log('Keys (depois):', valA, valB);
+
+                    return 0;
+                });
+
+                // 3️⃣ Renderiza a lista
+                filtered.forEach((books, index) => {
+                    const item = document.createElement('div');
+                    item.classtitulo = 'books-item';
+
+                    const toggleBtn = document.createElement('span');
+                    toggleBtn.classtitulo = 'toggle-btn';
+                    toggleBtn.textContent = expandedIndex === index ? '-' : '+';
+                    toggleBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        toggleDetail(index);
+                    };
+
+                    const tituloSpan = document.createElement('span');
+                    tituloSpan.textContent = books.titulo || '[Sem Nome]';
+
+                    item.appendChild(toggleBtn);
+                    item.appendChild(tituloSpan);
+                    list.appendChild(item);
+
+                    if (expandedIndex === index) {
+                        const detail = document.createElement('div');
+                        detail.classtitulo = 'books-detail';
+                        detail.textContent = `Livro: "${books.titulo}", escrito por ${books.author} em ${books.idioma} publicado em ${books.dtPub}`;
+                        list.appendChild(detail);
+                    }
+                });
+            };
+
+        </script>
+
+    </head>
+
+    <body>
+        <header>
+            <img src="./images/biblio.webp" alt="Logo Next Generation">
+            <h1>Biblioteca Publica</h1>
+        </header>
+        <nav>
+            <a href="#home" onclick="showPage('home')">Início</a>
+            <a href="#register" onclick="showPage('register')">Registar Livro</a>
+            <a href="#list" onclick="showPage('list')">Listar Livros</a>
+        </nav>
+        <main>
+            <div id="home" style="background-image: url('./images/biblioi_2.webp'); height: 400px; background-repeat: no-repeat;  background-size: fit; display: block;">
+                <h2>Bem-vindo à plataforma de gestão de Livros</h2>
+                <p>Utilize o menu acima para navegar.</p>
+            </div>
+
+            <div id="register" style="display:none;" class="books-form">
+                <h2>Registar Livro</h2>
+                <input type="text" id="titulo" placeholder="Titulo do Livro">
+                <input type="text" id="author" placeholder="Autor Principal">
+                <input type="text" id="idioma" placeholder="Idioma">
+                <input type="text" id="dtPub" placeholder="Data de Publicação">
+                <button onclick="registerbooks()">Guardar</button>
+            </div>
+
+            <div id="list" style="display:none;" class="books-list">
+                <h2>Lista de Livros</h2>
+                <div>
+                    <label for="filterInput">Filtrar:</label>
+                    <input type="text" id="filterInput" placeholder="titulo do livro...">
+                    
+                    <label for="sortSelect">Ordenar por:</label>
+                    <select id="sortSelect">
+                        <option value="titulo-asc">Titulo (A-Z)</option>
+                        <option value="titulo-desc">Titulo (Z-A)</option>
+                        <option value="author-asc">Autor (A-Z)</option>
+                        <option value="author-desc">Autor (Z-A)</option>
+                    </select>
+                </div>
+                <div id="booksList">
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

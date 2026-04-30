@@ -1,0 +1,42 @@
+<html lang="pt-PT">
+<!-- 	Passagem de valores entre páginas
+	utilizando forms pode-se passar valores introduzidos pelo utilizador entre páginas
+	utilzando a sintaxe METHOD="GET" os valores do formularios são passados como parte do URL para a página constante de valor do atributo ACTION
+	ver o ficheiro "JSPassingValues_tabela.htm" para  ver o modo de recuperar os valores passados entre paginas
+-->
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>uso de Javascript para validação de formulario</title>
+        
+        <link rel="stylesheet" href="style/estilo.css" type="text/css">
+        
+        <script type="text/javascript" language="javascript" src="scripts/valida.js">
+        </script>
+	</head>
+
+	<body>
+		<form action="JSPassingValues_tabela.htm" onsubmit="return validarForm(this);" method="get">
+			<table align="center">
+				<tr id="frmNome">
+					<td align="right" width="75">Nome: </td>
+<!-- 'this' refere-se ao objecto identificado na TAG, i.e., ao FORM -->
+					<td align="left"><input type="text" name="nome" size="30" placeholder="Introduza o seu nome"></td>
+					<td align="left" width="25">*</td>
+				</tr>
+				<tr id="frmMail" >
+					<td align="right">Email: </td>
+<!-- 'this' refere-se ao objecto identificado na TAG, i.e., ao FORM -->
+					<td align="left"><input type="text" name="email" size="30" placeholder="Introduza o seu email"></td>
+					<td align="left" width="25">*</td>
+				</tr>
+				<tr>
+					<td id="status" colspan="3">* preenchimeto obrigatorio</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><input type="submit" value="Continuar »"></td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

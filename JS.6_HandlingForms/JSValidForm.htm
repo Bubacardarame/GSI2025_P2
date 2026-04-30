@@ -1,0 +1,139 @@
+﻿<html lang="pt">
+<!-- 	Validação de formulários com javascript
+	num form de HTML, o atributo ACTION indica a acção a realizar após preenchimento e execução.
+	No entanto, a execução de ACTION é precedido pelo evento ONSUBMIT, activado ao premir o botão tipo SUBMIT
+	Esta sequência de execução permite condicionar a execução de ACTION aos resultados do codigo executado em resposta ao evento ONSUBMIT, conforme se mostra no presente exemplo
+	
+	A função validarForm devolve um valor do tipo booleano, capturado pelo uso de RETURN.
+	o uso desta sintaxe tem por resultado que ACTION só será realizada se o resultado de validarForm for avaliado como verdadeiro
+-->
+
+	<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>uso de Javascript para validação de formulario</title>
+	
+		<style type="text/css">
+<!--
+			#frmNome{color:				blue;
+					 text-decoration: 	none;
+		 			 text-transform:	lowercase;
+					 font-family: 		verdana;
+					 font-size: 		14
+					}
+					
+			#frmMail{color:				blue;
+					 text-decoration: 	none;
+		 			 text-transform:	lowercase;
+					 font-family: 		verdana;
+					 font-size: 		14
+					}
+
+			#status{color:				black;
+					 text-decoration: 	none;
+		 			 text-transform:	lowercase;
+					 font-family: 		verdana;
+					 font-size: 		10
+					}
+-->
+		</Style>
+
+	
+	<script type="text/javascript">
+	function verPreenche(campo){
+//função para verificar se um dado campo de preenchimento obrigatorio está preenchido
+		if (campo.value==null||campo.value==""){
+//				alert("vazio");
+			return false;
+			}
+//verifica-se se o campo está vazio ou se tem uma string nula
+		else{
+//				alert("preenchido");
+			return true;
+			}
+	}
+	
+	function validarMail(endereco){
+// utiliza-se as mesmas regras do exemplo JSValidMail
+		posAt=endereco.value.indexOf("@");
+		posPonto=endereco.value.lastIndexOf(".");
+		if (posAt<1||posPonto-posAt<2){
+			return false;
+			}
+		else{
+			return true;
+			}
+	}
+
+	function validarForm(formulario){
+		var txtOutput="";
+			var valido=true;
+			var txtStatus="";
+			if (verPreenche(formulario.nome)==false){
+//o campo do nome não está preenchido, alerta-se o utilizador				
+				formulario.nome.focus();
+				document.getElementById('frmNome').style.color='red';
+				txtStatus=txtStatus + "Nome nao esta preenchido \n ";
+				valido=false;
+				}
+			else{
+//o campo do nome está preenchido, repoem-se o formato original
+				document.getElementById('frmNome').style.color='blue';
+				}
+
+			if (verPreenche(formulario.email)==false){
+//o endereço de mail não está preenchido, alerta-se o utilizador				
+				txtStatus=txtStatus + "Mail nao esta preenchido \n ";
+				document.getElementById('frmMail').style.color='red';
+				valido=false;
+				}
+			else{
+				if (validarMail(formulario.email)==false){
+//o endereço não é valido, alerta-se o utilizador					
+					formulario.email.focus();
+					document.getElementById('frmMail').style.color='red';
+					txtStatus=txtStatus + "Endereço de mail invalido \n";
+					valido=false;
+					}
+				else{
+//o endereço de mail está preenchido e é valido, repoem-se o formato original
+					document.getElementById('frmMail').style.color='blue';
+					}
+				}
+
+			if (valido==false){
+			alert ("Verifique preenchimento do formulario \n "+txtStatus+" \n *Campos de Preenchimento obrigatorio","erro de preenchimento");
+				//document.getElementById('status').innerHTML="<strong>Verifique preenchimento do formulario</strong><br>"+txtStatus+"*Campos de Preenchimento obrigatorio";
+//a manipulação de conteudos via JavaScript	permite a inclusão de tags de HTML
+			}
+			return valido;
+		}
+	</script>
+	</head>
+
+	<body>
+<!-- action="mailValido.htm" -->
+		<form action="mailValido.htm" onsubmit="return validarForm(this);" method="get">
+			<table align="center">
+				<tr id="frmNome">
+					<td align="right" width="75">Nome: </td>
+<!-- 'this' refere-se ao objecto identificado na TAG, i.e., ao FORM -->
+					<td align="left"><input type="text" name="nome" size="30" title="Digite seu nome" placeholder="inserir o nome"></td>
+					<td align="left" width="25">*</td>
+				</tr>
+				<tr id="frmMail" >
+					<td align="right">Email: </td>
+<!-- 'this' refere-se ao objecto identificado na TAG, i.e., ao FORM -->
+					<td align="left"><input type="text" name="email" size="30" title="Digite seu email" placeholder="inserir email válido"></td>
+					<td align="left" width="25">*</td>
+				</tr>
+				<tr>
+					<td id="status" colspan="3">* preenchimeto obrigatorio</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><input type="submit" value="Continuar »"></td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

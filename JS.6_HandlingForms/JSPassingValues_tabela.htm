@@ -1,0 +1,69 @@
+﻿<html lang="pt">
+	<head><meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>endereço validado com sucesso</title>
+
+		<script type="text/javascript" language="JavaScript">
+			function getValues() {
+//função para obter valores passados no URL
+				var idx = document.URL.indexOf('?');
+				var passValues = new Array();
+//idx != -1 -> testa se há valores passados 
+				if (idx != -1) {
+					var pairs = document.URL.substring(idx+1, document.URL.length).split('&');
+//pairs é um array com a composiçãos do elementos passados
+//inclui o nome da variavel e o valor que lhe é atribuido
+					for (var i=0; i<pairs.length; i++) {
+						nameVal = pairs[i].split('=');
+//nameVal separa os parametros recebidos entre nome da variavel e o seu valor,
+//separados pelo simbolo '='
+						passValues[nameVal[0]] = nameVal[1];
+					   }
+				}
+				return passValues;
+			}
+			passValues = getValues();
+			
+			function DisplayValues(){
+				nome = unescape(passValues["nome"]);
+				passemail = unescape(passValues["email"]);
+
+//				document.write("nome = " + nome + "<br>");
+				document.getElementById('tblNome').innerHTML=nome;
+//				document.write("email = " + passemail + "<br>");
+				document.getElementById('tblMail').innerHTML=passemail;
+
+			}
+			
+		</script>
+
+	</head>
+
+	<body onload="DisplayValues()">
+		<table border="1" align="center">
+			<tr>
+				<td colspan="2" align="center">endereco valido</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">Dados do Formulario</td>
+			</tr>
+			<tr>
+				<td align="right" width="75">nome</td>
+				<td id="tblNome" width="150"></td>
+			</tr>
+			<tr>
+				<td align="right" width="75">mail</td>
+				<td id="tblMail" width="150"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<form method="get" action="JSValidForm_wValues.htm">
+						<input type="submit" value="voltar" alt="voltar à pagina anterior">
+					</form>
+				</td>
+			</tr>
+
+		</table>
+
+	</body>
+</html>

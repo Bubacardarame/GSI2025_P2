@@ -1,0 +1,178 @@
+﻿<html lang="pt">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Formulario</title>
+		
+		<script type="text/javascript" language="javascript">
+			function apresentaValores(formulario){
+/* 	função apresenta valores:
+	- escreve para a página o valor dos elementos do formulario
+*/
+//	caixa de texto
+				document.getElementById('resTexto').innerHTML=formulario.exTexto.value;
+				document.getElementById('resDate').innerHTML=formulario.exData.value;
+//	file system object
+				document.getElementById('resFile').innerHTML=formulario.exFile.value;
+
+//	check box
+				var chkSelected=""
+				for (i=0;i<formulario.exCheckBox.length;i++) {
+					if (formulario.exCheckBox[i].checked) {
+						chkSelected = chkSelected + formulario.exCheckBox[i].value + "&nbsp <br>";
+					}
+				}
+				document.getElementById('resCheckBox').innerHTML=chkSelected;
+
+// 	radio button				
+				for (i=0;i<formulario.exRadio.length;i++) {
+					if (formulario.exRadio[i].checked) {
+						document.getElementById('resRadio').innerHTML=formulario.exRadio[i].value;
+					}
+				}
+
+//	combo-box
+				document.getElementById('resSelect').innerHTML=formulario.exSelect.value;
+				return false;
+			}
+
+			function clearValues(formulario){
+				document.getElementById('resTexto').innerHTML="&nbsp";
+				document.getElementById('resDate').innerHTML="&nbsp";
+				document.getElementById('resFile').innerHTML="&nbsp";
+				document.getElementById('resCheckBox').innerHTML="&nbsp";
+				document.getElementById('resRadio').innerHTML="&nbsp";
+				document.getElementById('resSelect').innerHTML="&nbsp";
+			}
+		
+		</script>
+	</head>
+
+	<body>
+
+	<table align="center" border="1">
+<!--	construção de formulários em HTML
+	elementos a inserir num formulário
+	
+	FORMULARIOS
+	Os formulários são a forma priveligiada do HTML de interagir com utilizadores, permitem solicitar ao utilizador que introduza valores ou efectue opções necessarias à execução de uma aplicação web
+	o Javascript, entre outras linguagens, permite manipular dados introduzidos pelo utilizador sem recorrer a troca de informação com servidores Web
+	
+	um formulario é composto por duas partes
+	- cabeçalho:
+		o cabeçalho indica as acções e comportamentos que o formulario executará
+		o cabeçalho é identificado pela tag FORM e contem o comportamento para resposta aos EVENTOS do formulário.
+		no presente exemplo são referidos os eventos:
+		ONSUBMIT	- acção a realizar quando é precionado o botão tipo SUBMIT
+		ONRESET		- acção a realizar quando é precionado o botão tipo RESET
+		o cabeçalho taambem indica o metodo de submição do form
+	- conteudo:
+		todos os elementos de formularios são identificados pelo atributo INPUT e necessitam de elementos adicionais para identificarem correctamente o seu funcionamento:
+			- TYPE	- indica a natureza do elemento;
+			- NAME	- identificação do elemento para referencia futura, representa uma variavel que indicará o valor introduzido pelo utilizador
+			- VALUE	- valor introduzido pelo utilizador
+					- se for indicado na construção do formulario, indica o valor por defeito do elemento
+		A construção pode ter variantes em função do tipo de elemento
+-->
+	
+		<form method="POST" onsubmit="return apresentaValores(this);" onreset="clearValues(this);">
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center" colspan="2">
+<!-- Caixa de texto :	type="TEXT" -->
+				<input type="text" name="exTexto" placeholder="escreva o seu nome" size="50" align="right" title="Digite o seu nome" value="nome" readonly>
+<!--	placeholder indica o texto a ser exibido quando o campo está vazio 
+		title indica o texto a ser exibido quando o utilizador posiciona o cursor sobre o elemento do formulário
+				equivalente a 'alt' para elementos de imagem
+-->				
+			</td>
+			<td id="resTexto">&nbsp;</td>
+		</tr>
+			<tr>
+			<td>&nbsp;</td>
+			<td align="center" colspan="2">
+				<input type="date" name="exData" placeholder="escreva a data" size="50" align="left" title="Digite a data">
+			
+			</td>
+			<td id="resDate">&nbsp;</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center" colspan="2">
+<!-- file system object :	type="FILE"-->
+				<input type="file" name="exFile" size="20" title="Selecione um arquivo">
+			</td>
+			<td id="resFile">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;</td>
+			<td align="center" colspan="2">
+				<table align="center">
+					<tr>
+<!-- Seleccção multipla - Caixa de selecção :	type="CHECKBOX" -->
+						<td> opcao 1:</td>
+						<td><input type="checkbox" name="exCheckBox" value="Opção 1" title="Selecione a opção 1"></td>
+					</tr>
+					<tr>
+						<td> opcao 2:</td>
+						<td><input type="checkbox" name="exCheckBox" value="Opção 2" title="Selecione a opção 2"></td>
+					</tr>
+					<tr>
+						<td> opcao 3:</td>
+						<td><input type="checkbox" name="exCheckBox" value="Opção 3" title="Selecione a opção 3"></td>
+					</tr>
+				</table>
+			</td>
+			<td id="resCheckBox">&nbsp;</td>
+		</tr>
+		
+		<tr>
+			<td>&nbsp;</td>		
+			<td align="center" colspan="2">		
+
+<!-- 	Seleccção exclusiva - Radio Button :	type="RADIO"
+	No caso da escolha exclusiva, tem que haver um agrupamento para determinar quais os elementos que constituem o grupo de exclusão
+	a identificação do grupo é efectuada com a tag FIELDSET
+	a construção do fieldset indica que varios elementos, no caso elementos do tipo RADIO, serão agrupados num contentor comun
+-->
+				<fieldset name="exRadio">
+					<legend>Grupo de seleccao</legend>
+					<input type="radio" name="exRadio" value="Radio 1" checked="checked" title="Selecione a opção 1">opcao 1
+					<input type="radio" name="exRadio" value="Radio 2" title="Selecione a opção 2">opcao 2
+					<input type="radio" name="exRadio" value="Radio 3" title="Selecione a opção 3">opcao 3
+				</fieldset>
+			</td>
+			<td id="resRadio">&nbsp;</td>			
+		</tr>
+<!-- 	Seleccção simples - combo-box : não usa o aributo TYPE pois não é um elemento INPUT
+	Ao contrario do que acontece com o tipo 'radio button', no caso das 'combo box' não há o agrupamento de elementos individuais num contentor unico, há um unico elemento com varias opções
+	neste caso, o elemento é criado pela tag SELECT, as opções são adicionadas pela tag OPTION
+-->
+		<tr>
+			<td>&nbsp;</td>		
+			<td align="center" colspan="2">			
+				<select size="1" name="exSelect" title="Selecione uma opção">
+					<option value="escolha 1">escolha 1</option>
+					<option value="escolha 2">escolha 2</option>
+				</select>
+			</td>
+			<td id="resSelect">&nbsp;</td>			
+		</tr>
+			
+		<tr>
+			<td align="right" colspan="2">
+				<input type="submit" value="Submit" name="B1">
+			</td>
+			<td align="left" colspan="2">
+				<input type="reset" value="Reset" name="B2">
+			</td>		
+		</tr>
+		
+		</form>
+	</table>
+
+</body>
+
+</html>
